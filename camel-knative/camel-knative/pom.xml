@@ -55,17 +55,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>spi-annotations</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>apt</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
@@ -186,21 +175,33 @@
                     <execution>
                         <id>generate</id>
                         <goals>
-                            <goal>prepare-components</goal>
+                            <goal>generate-component</goal>
                         </goals>
                         <phase>process-classes</phase>
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
-                <groupId>org.jboss.jandex</groupId>
-                <artifactId>jandex-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>make-index</id>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>jandex</goal>
+                            <goal>add-source</goal>
+                            <goal>add-resource</goal>
                         </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/generated/java</source>
+                            </sources>
+                            <resources>
+                                <resource>
+                                    <directory>src/generated/resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

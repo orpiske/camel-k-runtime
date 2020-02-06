@@ -40,6 +40,7 @@ public class KnativeComponentTest {
     @BeforeEach
     public void before() {
         this.context = new DefaultCamelContext();
+        this.context.start();
     }
 
     @AfterEach
